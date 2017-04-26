@@ -1,0 +1,10 @@
+apply from: "$project.rootDir/quality/quality.gradle"
+
+android {
+    lintOptions {
+        lintConfig file("${project.rootDir}/quality/lint/uncommon-lint.xml")
+        abortOnError true
+        warningsAsErrors true
+        xmlReport false
+    }
+}

@@ -1,0 +1,20 @@
+apply plugin: 'checkstyle'
+
+task checkstyle(type: Checkstyle) {
+    configFile file("${project.rootDir}/quality/checkstyle/uncommon-checkstyle.xml")
+    configProperties = [
+            'checkstyle.cache.file': rootProject.file('build/checkstyle.cache'),
+            'checkstyleSuppressionsPath': file("${project.rootDir}/quality/checkstyle/suppressions.xml").absolutePath
+    ]
+    source 'src'
+    include '**/*.java'     // Only run on Java source files.
+    exclude '**/build/**'   // Exclude everything inside build folders.
+    exclude '**/test/**' // Exclude tests
+    exclude '**/androidTest/**' // Exclude android test files.
+	ignoreFailures = false  // Don't allow the build to continue if there are warnings.
+    classpath = files()
+}
+
+checkstyle {
+    toolVersion '6.19'    // set Checkstyle version here
+}
